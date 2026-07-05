@@ -29,7 +29,10 @@ class DocumentGenerationService:
             return response.content
         except Exception as e:
             logger.error(f"Failed to generate document: {e}")
-            return f"Error generating document: {e}"
+            error_str = str(e)
+            if "429" in error_str or "quota" in error_str.lower():
+                return "### ⚠️ AI Rate Limit Exceeded\n\nThe Google Gemini API is currently enforcing a rate limit (Error 429 - Quota Exceeded).\n\n**Action Required:** Please wait 30 seconds before running another workflow, or upgrade your API tier."
+            return f"### ⚠️ Generation Failed\n\nAn unexpected error occurred while communicating with the AI Provider:\n\n`{error_str}`"
 
     async def generate_onboarding_package(self, context: str) -> Dict[str, str]:
         """

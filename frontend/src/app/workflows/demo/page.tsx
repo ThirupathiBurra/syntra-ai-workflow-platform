@@ -119,7 +119,7 @@ export default function DemoWorkflow() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="flex-1 rounded-2xl border border-zinc-800 bg-zinc-950 p-6 shadow-xl overflow-y-auto max-h-[500px]"
+          className="flex-1 rounded-2xl border border-zinc-800 bg-zinc-950 p-6 shadow-xl overflow-y-auto min-h-[600px] max-h-[800px]"
         >
           <div className="flex items-center gap-2 mb-4 pb-4 border-b border-zinc-800">
             <BrainCircuit className="h-5 w-5 text-indigo-400" />
