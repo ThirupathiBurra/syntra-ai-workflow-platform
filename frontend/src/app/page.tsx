@@ -90,7 +90,7 @@ export default function MissionControl() {
   };
 
   return (
-    <div className="flex h-full flex-col items-center justify-center max-w-5xl mx-auto py-12 px-4">
+    <div className="flex min-h-full flex-col items-center justify-start max-w-5xl mx-auto pt-8 pb-24 px-4 md:pt-16">
       
       {/* Executive KPI Dashboard */}
       <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-4 mb-16 h-24">
