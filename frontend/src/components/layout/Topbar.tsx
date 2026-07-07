@@ -41,7 +41,7 @@ export function Topbar() {
   };
 
   return (
-    <header className="sticky top-0 z-40 flex h-14 w-full items-center justify-between border-b border-zinc-800/50 bg-zinc-950/80 backdrop-blur-xl px-4 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-40 flex h-14 w-full items-center justify-between border-b border-zinc-200 dark:border-zinc-800/50 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-xl px-4 sm:px-6 lg:px-8">
       <div className="flex flex-1 items-center gap-x-4">
         <form 
           onSubmit={(e) => {
@@ -51,7 +51,7 @@ export function Topbar() {
               setSearchQuery("");
             }
           }}
-          className="flex w-full max-w-sm items-center gap-x-3 rounded-full bg-zinc-900 px-3 py-1.5 border border-zinc-800/50"
+          className="flex w-full max-w-sm items-center gap-x-3 rounded-full bg-zinc-100 dark:bg-zinc-900 px-3 py-1.5 border border-zinc-200 dark:border-zinc-800/50"
         >
           <Search className="h-4 w-4 text-zinc-500" />
           <input
@@ -59,10 +59,10 @@ export function Topbar() {
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="flex-1 bg-transparent text-sm text-zinc-300 placeholder:text-zinc-500 focus:outline-none"
+            className="flex-1 bg-transparent text-sm text-zinc-900 dark:text-zinc-300 placeholder:text-zinc-500 focus:outline-none"
             placeholder="Search missions, knowledge..."
           />
-          <div className="flex items-center gap-1 rounded bg-zinc-800 px-1.5 py-0.5 text-xs text-zinc-400">
+          <div className="flex items-center gap-1 rounded bg-zinc-200 dark:bg-zinc-800 px-1.5 py-0.5 text-xs text-zinc-500 dark:text-zinc-400">
             <span>⌘</span>
             <span>K</span>
           </div>
@@ -87,15 +87,15 @@ export function Topbar() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 10 }}
-                className="absolute right-0 mt-2 w-56 rounded-xl border border-zinc-800 bg-zinc-950 shadow-2xl py-1 z-50"
+                className="absolute right-0 mt-2 w-56 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 shadow-2xl py-1 z-50"
               >
-                <div className="px-3 py-2 border-b border-zinc-800/50 mb-1">
+                <div className="px-3 py-2 border-b border-zinc-200 dark:border-zinc-800/50 mb-1">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-500">Quick Execute</span>
                 </div>
-                <button onClick={() => executeDemo("Employee Onboarding")} className="w-full text-left px-4 py-2 text-sm text-zinc-300 hover:bg-zinc-900 hover:text-white transition-colors">Employee Onboarding</button>
-                <button onClick={() => executeDemo("Contract Review")} className="w-full text-left px-4 py-2 text-sm text-zinc-300 hover:bg-zinc-900 hover:text-white transition-colors">Contract Review</button>
-                <button onClick={() => executeDemo("Customer Complaint")} className="w-full text-left px-4 py-2 text-sm text-zinc-300 hover:bg-zinc-900 hover:text-white transition-colors">Customer Complaint</button>
-                <button onClick={() => executeDemo("Compliance Audit")} className="w-full text-left px-4 py-2 text-sm text-zinc-300 hover:bg-zinc-900 hover:text-white transition-colors">Compliance Audit</button>
+                <button onClick={() => executeDemo("Employee Onboarding")} className="w-full text-left px-4 py-2 text-sm text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-zinc-900 dark:hover:text-white transition-colors">Employee Onboarding</button>
+                <button onClick={() => executeDemo("Contract Review")} className="w-full text-left px-4 py-2 text-sm text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-zinc-900 dark:hover:text-white transition-colors">Contract Review</button>
+                <button onClick={() => executeDemo("Customer Complaint")} className="w-full text-left px-4 py-2 text-sm text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-zinc-900 dark:hover:text-white transition-colors">Customer Complaint</button>
+                <button onClick={() => executeDemo("Compliance Audit")} className="w-full text-left px-4 py-2 text-sm text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-zinc-900 dark:hover:text-white transition-colors">Compliance Audit</button>
               </motion.div>
             )}
           </AnimatePresence>
@@ -104,7 +104,7 @@ export function Topbar() {
         {/* Presentation Mode Toggle */}
         <button 
           onClick={togglePresentationMode} 
-          className={`flex items-center justify-center h-8 w-8 rounded-md transition-all ${isPresentationMode ? 'bg-indigo-500/20 text-indigo-400 border border-indigo-500/30' : 'text-zinc-400 hover:text-zinc-100 hover:bg-zinc-900'}`}
+          className={`flex items-center justify-center h-8 w-8 rounded-md transition-all ${isPresentationMode ? 'bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 border border-indigo-500/30' : 'text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-900'}`}
           title={isPresentationMode ? "Disable Presentation Mode" : "Enable Presentation Mode"}
         >
           {isPresentationMode ? <MonitorOff className="h-4 w-4" /> : <MonitorPlay className="h-4 w-4" />}
