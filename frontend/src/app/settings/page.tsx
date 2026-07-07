@@ -1,16 +1,19 @@
 "use client";
 
 import { PageHeader } from "@/components/ui/PageHeader";
-import { Settings, Brain } from "lucide-react";
+import { Settings, Brain, Palette } from "lucide-react";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { useTheme } from "next-themes";
 
 const SETTINGS_SECTIONS = [
   { id: "ai", label: "AI Models", icon: Brain },
+  { id: "appearance", label: "Appearance", icon: Palette },
 ];
 
 export default function SettingsPage() {
   const [activeSection, setActiveSection] = useState("ai");
+  const { theme, setTheme } = useTheme();
 
   // State for AI Models settings
   const [planningModel, setPlanningModel] = useState("Gemini 2.5 Flash");
@@ -82,19 +85,19 @@ export default function SettingsPage() {
               className="space-y-6"
             >
               <div>
-                <h3 className="text-lg font-medium text-zinc-100">AI Models</h3>
-                <p className="text-sm text-zinc-400 mt-1">Configure default models for planning, execution, and embeddings.</p>
+                <h3 className="text-lg font-medium text-zinc-900 dark:text-zinc-100">AI Models</h3>
+                <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1">Configure default models for planning, execution, and embeddings.</p>
               </div>
 
-              <div className="bg-zinc-950 border border-zinc-800 rounded-2xl overflow-hidden shadow-xl">
+              <div className="bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-2xl overflow-hidden shadow-xl">
                 <div className="p-6 space-y-6">
                   
                   <div>
-                    <label className="block text-sm font-medium text-zinc-300 mb-2">Default Planning Model</label>
+                    <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">Default Planning Model</label>
                     <select 
                       value={planningModel}
                       onChange={(e) => setPlanningModel(e.target.value)}
-                      className="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm text-zinc-100 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all"
+                      className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg px-4 py-2.5 text-sm text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all"
                     >
                       <option value="Gemini 2.5 Flash">Gemini 2.5 Flash</option>
                       <option value="Gemini 2.5 Pro">Gemini 2.5 Pro</option>
@@ -103,11 +106,11 @@ export default function SettingsPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-zinc-300 mb-2">Default Generation Model</label>
+                    <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">Default Generation Model</label>
                     <select 
                       value={generationModel}
                       onChange={(e) => setGenerationModel(e.target.value)}
-                      className="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm text-zinc-100 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all"
+                      className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg px-4 py-2.5 text-sm text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all"
                     >
                       <option value="Gemini 2.5 Flash">Gemini 2.5 Flash</option>
                       <option value="Gemini 2.5 Pro">Gemini 2.5 Pro</option>
@@ -115,20 +118,20 @@ export default function SettingsPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-zinc-300 mb-2">Google Provider API Key</label>
+                    <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">Google Provider API Key</label>
                     <input 
                       type="password" 
                       value={apiKey}
                       onChange={(e) => setApiKey(e.target.value)}
                       placeholder="AIzaSy..."
-                      className="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm text-zinc-100 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all"
+                      className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg px-4 py-2.5 text-sm text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all"
                     />
                     <p className="mt-1 text-xs text-zinc-500">Saved securely in your browser&apos;s local storage.</p>
                   </div>
 
                 </div>
-                <div className="p-4 border-t border-zinc-800 bg-zinc-900/30 flex items-center justify-between">
-                  <span className="text-sm font-medium text-emerald-400">
+                <div className="p-4 border-t border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/30 flex items-center justify-between">
+                  <span className="text-sm font-medium text-emerald-600 dark:text-emerald-400">
                     {saveMessage}
                   </span>
                   <button 
@@ -138,6 +141,69 @@ export default function SettingsPage() {
                   >
                     {isSaving ? "Saving..." : "Save Changes"}
                   </button>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+          {activeSection === "appearance" && (
+            <motion.div 
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="space-y-6"
+            >
+              <div>
+                <h3 className="text-lg font-medium text-zinc-900 dark:text-zinc-100">Appearance</h3>
+                <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1">Customize the look and feel of your workspace.</p>
+              </div>
+
+              <div className="bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-2xl overflow-hidden shadow-xl">
+                <div className="p-6 space-y-6">
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">Theme</label>
+                    <div className="grid grid-cols-3 gap-4">
+                      <button
+                        onClick={() => setTheme("light")}
+                        className={`flex flex-col items-center justify-center p-4 rounded-xl border-2 transition-all ${
+                          theme === "light" 
+                            ? "border-indigo-500 bg-indigo-50 dark:bg-indigo-500/10" 
+                            : "border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700"
+                        }`}
+                      >
+                        <div className="w-full h-16 bg-white border border-zinc-200 rounded-lg shadow-sm mb-3"></div>
+                        <span className="text-sm font-medium text-zinc-700 dark:text-zinc-300">Light</span>
+                      </button>
+
+                      <button
+                        onClick={() => setTheme("dark")}
+                        className={`flex flex-col items-center justify-center p-4 rounded-xl border-2 transition-all ${
+                          theme === "dark" 
+                            ? "border-indigo-500 bg-indigo-50 dark:bg-indigo-500/10" 
+                            : "border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700"
+                        }`}
+                      >
+                        <div className="w-full h-16 bg-zinc-950 border border-zinc-800 rounded-lg shadow-sm mb-3"></div>
+                        <span className="text-sm font-medium text-zinc-700 dark:text-zinc-300">Dark</span>
+                      </button>
+
+                      <button
+                        onClick={() => setTheme("system")}
+                        className={`flex flex-col items-center justify-center p-4 rounded-xl border-2 transition-all ${
+                          theme === "system" 
+                            ? "border-indigo-500 bg-indigo-50 dark:bg-indigo-500/10" 
+                            : "border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700"
+                        }`}
+                      >
+                        <div className="w-full h-16 rounded-lg shadow-sm mb-3 flex overflow-hidden border border-zinc-200 dark:border-zinc-800">
+                          <div className="w-1/2 h-full bg-white"></div>
+                          <div className="w-1/2 h-full bg-zinc-950"></div>
+                        </div>
+                        <span className="text-sm font-medium text-zinc-700 dark:text-zinc-300">System</span>
+                      </button>
+                    </div>
+                  </div>
+
                 </div>
               </div>
             </motion.div>

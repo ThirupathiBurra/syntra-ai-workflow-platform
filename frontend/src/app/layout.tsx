@@ -5,6 +5,7 @@ import { Sidebar } from "@/components/layout/Sidebar";
 import { Topbar } from "@/components/layout/Topbar";
 import { WelcomeModal } from "@/components/ui/WelcomeModal";
 import { QueryProvider } from "@/components/providers/QueryProvider";
+import { ThemeProvider } from "@/components/providers/ThemeProvider";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -19,20 +20,27 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body className={`${inter.variable} font-sans antialiased bg-zinc-950 text-zinc-50 overflow-hidden`}>
-        <QueryProvider>
-          <WelcomeModal />
-          <div className="flex h-screen w-full">
-            <Sidebar />
-            <div className="flex-1 flex flex-col min-w-0">
-              <Topbar />
-              <main className="flex-1 overflow-y-auto px-4 sm:px-6 lg:px-8">
-                {children}
-              </main>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.variable} font-sans antialiased bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 overflow-hidden`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <QueryProvider>
+            <WelcomeModal />
+            <div className="flex h-screen w-full">
+              <Sidebar />
+              <div className="flex-1 flex flex-col min-w-0">
+                <Topbar />
+                <main className="flex-1 overflow-y-auto px-4 sm:px-6 lg:px-8">
+                  {children}
+                </main>
+              </div>
             </div>
-          </div>
-        </QueryProvider>
+          </QueryProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
