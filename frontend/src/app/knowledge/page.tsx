@@ -24,7 +24,7 @@ const fetchDocuments = async (): Promise<Document[]> => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/knowledge`);
     if (!res.ok) throw new Error("Failed to fetch documents");
     return res.json();
-  } catch (err) {
+  } catch {
     // DEMO MODE: Fallback if backend is unreachable
     console.warn("Backend unreachable, falling back to demo documents.");
     return [
@@ -34,7 +34,7 @@ const fetchDocuments = async (): Promise<Document[]> => {
         type: "pdf",
         owner: "Finance Team",
         size: "2.4 MB",
-        status: "Indexed",
+        status: "indexed",
         created_at: new Date(Date.now() - 86400000).toISOString()
       },
       {
@@ -43,7 +43,7 @@ const fetchDocuments = async (): Promise<Document[]> => {
         type: "md",
         owner: "HR Dept",
         size: "145 KB",
-        status: "Indexed",
+        status: "indexed",
         created_at: new Date(Date.now() - 172800000).toISOString()
       }
     ];
@@ -83,7 +83,7 @@ export default function KnowledgeBasePage() {
         
         // Success: refresh from backend
         queryClient.invalidateQueries({ queryKey: ["documents"] });
-      } catch (err) {
+      } catch {
         // DEMO MODE: Simulate success if backend fails
         console.warn("Backend upload failed, simulating success for demo.");
         await new Promise(resolve => setTimeout(resolve, 1500)); 
@@ -94,11 +94,11 @@ export default function KnowledgeBasePage() {
           type: file.name.split('.').pop() || 'txt',
           owner: "System Admin",
           size: `${(file.size / 1024).toFixed(1)} KB`,
-          status: "Indexed" as StatusType,
+          status: "indexed" as StatusType,
           created_at: new Date().toISOString()
         };
         
-        queryClient.setQueryData(["documents"], (old: any) => [newDoc, ...(old || [])]);
+        queryClient.setQueryData(["documents"], (old: Document[] | undefined) => [newDoc, ...(old || [])]);
       }
 
       if (fileInputRef.current) fileInputRef.current.value = "";
